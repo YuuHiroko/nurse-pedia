@@ -1,0 +1,126 @@
+/* ========== PDF / PRINT OPTIMIZATIONS ========== */
+@media print {
+    body {
+        background: white;
+        color: black;
+    }
+
+    .navbar,
+    .download-btn,
+    .theme-toggle,
+    .scroll-to-top,
+    .search-container {
+        display: none !important;
+    }
+
+    .main-subjects,
+    .lesson-content {
+        width: 100%;
+        max-width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+}
+
+/* Specific Styles for PDF Export (Applied via JS) */
+.pdf-export-wrapper {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    /* Wiki-like font */
+    color: #000;
+    background: #fff;
+    line-height: 1.6;
+    font-size: 11pt;
+    /* Standard doc size */
+}
+
+/* Smart Page Breaks */
+.pdf-export-wrapper h1,
+.pdf-export-wrapper h2,
+.pdf-export-wrapper h3 {
+    page-break-after: avoid;
+    break-after: avoid;
+    color: #000;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 5px;
+    margin-top: 20px;
+}
+
+.pdf-export-wrapper p,
+.pdf-export-wrapper li {
+    page-break-inside: auto;
+    orphans: 3;
+    widows: 3;
+}
+
+.pdf-export-wrapper img,
+.pdf-export-wrapper table,
+.pdf-export-wrapper .content-section,
+.pdf-export-wrapper .lesson-card,
+.pdf-export-wrapper .term-pair,
+.pdf-export-wrapper .timeline-item,
+.pdf-export-wrapper .branch-card,
+.pdf-export-wrapper .clinical-card {
+    page-break-inside: avoid;
+    break-inside: avoid;
+}
+
+/* Wiki-Style Layout Overrides */
+.pdf-export-wrapper .content-section {
+    box-shadow: none;
+    border: none;
+    background: none;
+    padding: 0;
+    margin-bottom: 30px;
+}
+
+.pdf-export-wrapper .lesson-hero {
+    background: none !important;
+    color: #000 !important;
+    padding: 20px 0;
+    border-bottom: 2px solid #000;
+    text-align: left;
+}
+
+.pdf-export-wrapper .lesson-hero h1 {
+    color: #000 !important;
+    font-size: 24pt;
+    border: none;
+    margin-bottom: 10px;
+}
+
+.pdf-export-wrapper .lesson-subtitle {
+    color: #444 !important;
+    font-size: 14pt;
+}
+
+.pdf-export-wrapper .lesson-meta {
+    color: #666;
+    font-size: 10pt;
+    margin-top: 5px;
+}
+
+.pdf-export-wrapper mark {
+    background: none;
+    color: inherit;
+    font-weight: bold;
+}
+
+/* Table styling for PDF */
+.pdf-export-wrapper table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 15px 0;
+    font-size: 10pt;
+}
+
+.pdf-export-wrapper th,
+.pdf-export-wrapper td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.pdf-export-wrapper th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}

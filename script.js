@@ -258,46 +258,51 @@ class PDFExporter {
                         <button class="pdf-close" onclick="pdfExporter.closeModal()" aria-label="Close dialog">&times;</button>
                     </div>
                     <div class="pdf-modal-body">
-                        <div class="pdf-option">
-                            <label for="pdfFilename">Filename:</label>
-                            <input type="text" id="pdfFilename" value="Nurse-Pedia-Notes" aria-label="PDF filename" />
+                        <div class="pdf-option-grid">
+                            <div class="pdf-option">
+                                <label for="pdfFilename">Filename</label>
+                                <input type="text" id="pdfFilename" value="Nurse-Pedia-Notes" />
+                            </div>
+                            <div class="pdf-option">
+                                <label for="pdfPageSize">Page Size</label>
+                                <select id="pdfPageSize">
+                                    <option value="a4" selected>A4</option>
+                                    <option value="letter">Letter</option>
+                                    <option value="legal">Legal</option>
+                                </select>
+                            </div>
+                            <div class="pdf-option">
+                                <label for="pdfLayout">Style</label>
+                                <select id="pdfLayout">
+                                    <option value="wiki" selected>Wiki Content (Clean)</option>
+                                    <option value="original">Web Match (Colorful)</option>
+                                </select>
+                            </div>
+                            <div class="pdf-option">
+                                <label for="pdfFontSize">Font Size</label>
+                                <select id="pdfFontSize">
+                                    <option value="small">Small (Compact)</option>
+                                    <option value="medium" selected>Medium (Standard)</option>
+                                    <option value="large">Large (Readable)</option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="pdf-option">
-                            <label for="pdfPageSize">Page Size:</label>
-                            <select id="pdfPageSize" aria-label="PDF page size">
-                                <option value="a4" selected>A4</option>
-                                <option value="letter">Letter</option>
-                                <option value="legal">Legal</option>
-                            </select>
-                        </div>
-                        <div class="pdf-option">
-                            <label for="pdfOrientation">Orientation:</label>
-                            <select id="pdfOrientation" aria-label="PDF orientation">
-                                <option value="portrait" selected>Portrait</option>
-                                <option value="landscape">Landscape</option>
-                            </select>
-                        </div>
-                        <div class="pdf-option">
-                            <label for="pdfQuality">Quality:</label>
-                            <select id="pdfQuality" aria-label="PDF quality">
-                                <option value="low">Low (Faster, Smaller)</option>
-                                <option value="medium" selected>Medium (Recommended)</option>
-                                <option value="high">High (Slower, Larger)</option>
-                            </select>
-                        </div>
-                        <div class="pdf-option pdf-checkbox">
-                            <input type="checkbox" id="pdfIncludeImages" checked aria-label="Include images"/>
-                            <label for="pdfIncludeImages">Include Images</label>
-                        </div>
-                        <div class="pdf-option pdf-checkbox">
-                            <input type="checkbox" id="pdfIncludePageNumbers" checked aria-label="Add page numbers" />
-                            <label for="pdfIncludePageNumbers">Add Page Numbers</label>
+
+                        <div class="pdf-checklist">
+                            <div class="pdf-checkbox">
+                                <input type="checkbox" id="pdfIncludeImages" checked />
+                                <label for="pdfIncludeImages">Include Images</label>
+                            </div>
+                            <div class="pdf-checkbox">
+                                <input type="checkbox" id="pdfIncludePageNumbers" checked />
+                                <label for="pdfIncludePageNumbers">Page Numbers</label>
+                            </div>
                         </div>
                     </div>
                     <div class="pdf-modal-footer">
                         <button class="pdf-btn pdf-btn-cancel" onclick="pdfExporter.closeModal()">Cancel</button>
                         <button class="pdf-btn pdf-btn-generate" onclick="pdfExporter.generate()">
-                            <i class="fa-solid fa-download" aria-hidden="true"></i> Generate PDF
+                            <i class="fa-solid fa-download" aria-hidden="true"></i> Download PDF
                         </button>
                     </div>
                     <div id="pdfProgress" class="pdf-progress" style="display: none;" role="status" aria-live="polite">
@@ -305,7 +310,7 @@ class PDFExporter {
                             <div class="pdf-progress-fill"></div>
                         </div>
                         <p id="pdfProgressText">Preparing PDF...</p>
-                        <p class="pdf-progress-tip">This may take a moment. Please don't close this window.</p>
+                        <p class="pdf-progress-tip">Generating pixel-perfect layout...</p>
                     </div>
                 </div>
             </div>
@@ -314,18 +319,12 @@ class PDFExporter {
         document.body.insertAdjacentHTML('beforeend', modalHTML);
         this.modal = document.getElementById('pdfModal');
 
-        // Close on outside click
+        // Close handling
         this.modal.addEventListener('click', (e) => {
-            if (e.target === this.modal && !this.isGenerating) {
-                this.closeModal();
-            }
+            if (e.target === this.modal && !this.isGenerating) this.closeModal();
         });
-
-        // Close on Escape key
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && this.modal.style.display === 'flex' && !this.isGenerating) {
-                this.closeModal();
-            }
+            if (e.key === 'Escape' && this.modal.style.display === 'flex' && !this.isGenerating) this.closeModal();
         });
     }
 
@@ -338,34 +337,53 @@ class PDFExporter {
 
     async generate() {
         if (this.isGenerating || typeof html2pdf === 'undefined') {
-            if (typeof html2pdf === 'undefined') {
-                alert('PDF library not loaded. Please try again or use browser Print (Ctrl+P).');
-            }
+            if (typeof html2pdf === 'undefined') alert('PDF library not ready. Please verify internet connection.');
             return;
         }
 
         const filename = document.getElementById('pdfFilename')?.value || 'Nurse-Pedia';
         const pageSize = document.getElementById('pdfPageSize')?.value || 'a4';
-        const orientation = document.getElementById('pdfOrientation')?.value || 'portrait';
-        const quality = document.getElementById('pdfQuality')?.value || 'medium';
+        const layoutStyle = document.getElementById('pdfLayout')?.value || 'wiki';
+        const fontSize = document.getElementById('pdfFontSize')?.value || 'medium';
         const includeImages = document.getElementById('pdfIncludeImages')?.checked ?? true;
 
         const progress = document.getElementById('pdfProgress');
         if (progress) progress.style.display = 'block';
         this.isGenerating = true;
-
         document.querySelectorAll('.pdf-btn').forEach(btn => btn.disabled = true);
 
         try {
-            this.updateProgress(10, 'Preparing content...');
+            this.updateProgress(10, 'Analyzing content structure...');
 
-            const element = document.querySelector('main') || document.body;
-            const clone = element.cloneNode(true);
+            // Select only the main content area (e.g., .lesson-content or main)
+            // Use specific content container if available to avoid grabbing sidebars/navs
+            const contentSource = document.querySelector('.lesson-content') || document.querySelector('main') || document.body;
 
-            this.updateProgress(20, 'Processing content...');
+            // Clone the node deeply
+            const clone = contentSource.cloneNode(true);
 
-            // Remove unwanted elements
-            const removeSelectors = ['.navbar', '.download-btn', '.pdf-modal', '.breadcrumb', '.lesson-navigation', '.scroll-to-top', '.theme-toggle', '.search-container'];
+            this.updateProgress(25, 'Applying pro layout styles...');
+
+            // Prepare the wrapper that will receive the special PDF class
+            const wrapper = document.createElement('div');
+
+            // Add the special PDF class if Wiki style is selected
+            if (layoutStyle === 'wiki') {
+                wrapper.classList.add('pdf-export-wrapper');
+                // Adjust font size specifically for the wrapper
+                if (fontSize === 'small') wrapper.style.fontSize = '9pt';
+                if (fontSize === 'large') wrapper.style.fontSize = '12pt';
+            } else {
+                // Web Match style - ensure background is white for printing
+                wrapper.style.background = '#fff';
+                wrapper.style.color = '#000';
+            }
+
+            wrapper.appendChild(clone);
+
+            // Clean up unwanted elements from the clone
+            const removeSelectors = ['.navbar', '.download-btn', '.pdf-modal', '.breadcrumb', '.lesson-navigation',
+                '.scroll-to-top', '.theme-toggle', '.search-container', '.toc-card', '.share-buttons'];
             removeSelectors.forEach(selector => {
                 clone.querySelectorAll(selector).forEach(el => el.remove());
             });
@@ -374,17 +392,20 @@ class PDFExporter {
                 clone.querySelectorAll('img').forEach(img => img.remove());
             }
 
-            this.updateProgress(40, 'Configuring PDF settings...');
+            // Pre-process special elements for better page breaking
+            // E.g., ensure no heading is the last element in a container
+            clone.querySelectorAll('h2, h3').forEach(heading => {
+                heading.style.pageBreakAfter = 'avoid';
+            });
 
-            const scaleMap = { low: 1.5, medium: 2, high: 3 };
-            const qualityMap = { low: 0.7, medium: 0.85, high: 0.98 };
+            this.updateProgress(50, 'Rendering high-resolution pages...');
 
             const opt = {
-                margin: [15, 10, 15, 10],
+                margin: [15, 15, 15, 15], // Standard document margins (mm)
                 filename: `${filename}.pdf`,
-                image: { type: 'jpeg', quality: qualityMap[quality] },
+                image: { type: 'jpeg', quality: 0.95 },
                 html2canvas: {
-                    scale: scaleMap[quality],
+                    scale: 2, // High resolution
                     useCORS: true,
                     logging: false,
                     letterRendering: true,
@@ -393,21 +414,17 @@ class PDFExporter {
                 jsPDF: {
                     unit: 'mm',
                     format: pageSize,
-                    orientation: orientation,
+                    orientation: 'portrait',
                     compress: true
                 },
-                pagebreak: { mode: ['avoid-all', 'css'], before: '.content-section' }
+                // Use 'css' mode primarily to respect our new break-inside: avoid rules
+                // 'avoid-all' is sometimes too aggressive, so we rely on our smart CSS
+                pagebreak: { mode: 'css', avoid: ['img', '.content-section', 'table', '.term-pair'] }
             };
-
-            this.updateProgress(50, 'Generating PDF (this may take a while)...');
-
-            const wrapper = document.createElement('div');
-            wrapper.style.cssText = 'background: white; padding: 20px;';
-            wrapper.appendChild(clone);
 
             await html2pdf().set(opt).from(wrapper).save();
 
-            this.updateProgress(100, 'PDF generated successfully!');
+            this.updateProgress(100, 'Download starting...');
 
             setTimeout(() => {
                 if (progress) progress.style.display = 'none';
@@ -417,8 +434,8 @@ class PDFExporter {
             }, 1000);
 
         } catch (error) {
-            console.error('PDF generation error:', error);
-            alert('Error generating PDF. Please try using your browser Print function (Ctrl+P or Cmd+P).');
+            console.error('PDF Error:', error);
+            alert('Error generating PDF. Please try again.');
             if (progress) progress.style.display = 'none';
             this.isGenerating = false;
             document.querySelectorAll('.pdf-btn').forEach(btn => btn.disabled = false);
@@ -427,7 +444,114 @@ class PDFExporter {
 }
 
 /* ==========================================
- * 6. INITIALIZATION
+ * 6. PROGRESS TRACKING
+ * ========================================== */
+class ProgressManager {
+    constructor() {
+        this.storageKey = 'nursepedia_progress';
+        this.progress = JSON.parse(localStorage.getItem(this.storageKey)) || {};
+        this.init();
+    }
+
+    init() {
+        this.updateUI();
+        this.bindEvents();
+    }
+
+    bindEvents() {
+        // Handle "Mark as Complete" button clicks
+        const completeBtn = document.getElementById('markCompleteBtn');
+        if (completeBtn) {
+            completeBtn.addEventListener('click', () => {
+                const lessonId = completeBtn.dataset.lessonId;
+                this.toggleLesson(lessonId);
+            });
+        }
+    }
+
+    toggleLesson(lessonId) {
+        if (!lessonId) return;
+
+        this.progress[lessonId] = !this.progress[lessonId];
+        this.saveProgress();
+        this.updateUI();
+
+        // Show celebratory toast if completed
+        if (this.progress[lessonId]) {
+            this.showToast('Lesson Completed! 🎉');
+        }
+    }
+
+    saveProgress() {
+        localStorage.setItem(this.storageKey, JSON.stringify(this.progress));
+    }
+
+    updateUI() {
+        // 1. Update Lesson Page Button
+        const completeBtn = document.getElementById('markCompleteBtn');
+        if (completeBtn) {
+            const lessonId = completeBtn.dataset.lessonId;
+            const isComplete = this.progress[lessonId];
+
+            if (isComplete) {
+                completeBtn.classList.add('completed');
+                completeBtn.innerHTML = '<i class="fa-solid fa-check-circle"></i> Completed';
+            } else {
+                completeBtn.classList.remove('completed');
+                completeBtn.innerHTML = '<i class="fa-regular fa-circle-check"></i> Mark as Complete';
+            }
+        }
+
+        // 2. Update Home Page Cards
+        document.querySelectorAll('.lesson-card').forEach(card => {
+            const lessonId = card.dataset.lessonId;
+            if (this.progress[lessonId]) {
+                card.classList.add('is-completed');
+
+                // Add badge if not exists
+                if (!card.querySelector('.completion-badge')) {
+                    const badge = document.createElement('div');
+                    badge.className = 'completion-badge';
+                    badge.innerHTML = '<i class="fa-solid fa-check"></i>';
+                    card.appendChild(badge);
+                }
+            } else {
+                card.classList.remove('is-completed');
+                const badge = card.querySelector('.completion-badge');
+                if (badge) badge.remove();
+            }
+        });
+
+        // 3. Update Global Progress Bar (if exists (future))
+        this.updateGlobalProgress();
+    }
+
+    updateGlobalProgress() {
+        // Calculate total progress
+        const totalLessons = 50; // Placeholder total
+        const completedCount = Object.values(this.progress).filter(Boolean).length;
+        // console.log(`Progress: ${completedCount}/${totalLessons}`);
+    }
+
+    showToast(message) {
+        const toast = document.createElement('div');
+        toast.className = 'toast-notification';
+        toast.textContent = message;
+        document.body.appendChild(toast);
+
+        // Trigger animation
+        setTimeout(() => toast.classList.add('show'), 100);
+
+        // Remove after 3s
+        setTimeout(() => {
+            toast.classList.remove('show');
+            setTimeout(() => toast.remove(), 300);
+        }, 3000);
+    }
+}
+
+/* ==========================================
+ * 7. INITIALIZATION
  * ========================================== */
 let themeManager, searchManager, lazyLoader, scrollManager, pdfExporter;
 
@@ -439,6 +563,7 @@ document.addEventListener('DOMContentLoaded', () => {
         lazyLoader = new LazyLoader();
         scrollManager = new ScrollManager();
         pdfExporter = new PDFExporter();
+        const progressManager = new ProgressManager(); // Init progress
 
         console.log('✅ Nurse Pedia: All modules initialized successfully');
     } catch (error) {
