@@ -275,6 +275,7 @@ class PDFExporter {
                                 <label for="pdfLayout">Style</label>
                                 <select id="pdfLayout">
                                     <option value="wiki" selected>Wiki Content (Clean)</option>
+                                    <option value="handwritten">Handwritten Notes (Lined Paper)</option>
                                     <option value="original">Web Match (Colorful)</option>
                                 </select>
                             </div>
@@ -373,6 +374,9 @@ class PDFExporter {
                 // Adjust font size specifically for the wrapper
                 if (fontSize === 'small') wrapper.style.fontSize = '9pt';
                 if (fontSize === 'large') wrapper.style.fontSize = '12pt';
+            } else if (layoutStyle === 'handwritten') {
+                wrapper.classList.add('pdf-export-wrapper'); // Base styles
+                wrapper.classList.add('pdf-handwritten');    // Handwritten overrides
             } else {
                 // Web Match style - ensure background is white for printing
                 wrapper.style.background = '#fff';

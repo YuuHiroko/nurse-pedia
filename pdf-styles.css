@@ -120,7 +120,88 @@
     text-align: left;
 }
 
-.pdf-export-wrapper th {
-    background-color: #f2f2f2;
-    font-weight: bold;
+/* Handwritten Note Style (Notability-like) */
+.pdf-handwritten {
+    font-family: 'Kalam', cursive;
+    color: #1a1a2e;
+    /* Ink blue-black */
+    background-color: #f7f7f7;
+    /* Paper off-white */
+    background-image:
+        linear-gradient(#e1e1e1 1px, transparent 1px);
+    background-size: 100% 30px;
+    /* Line spacing */
+    line-height: 30px;
+    /* Align text to lines */
+    font-size: 14pt;
+    padding: 0 40px !important;
+    /* Margins */
+}
+
+/* Align headings to grid */
+.pdf-handwritten h1,
+.pdf-handwritten h2,
+.pdf-handwritten h3,
+.pdf-handwritten h4 {
+    font-family: 'Kalam', cursive;
+    font-weight: 700;
+    color: #d32f2f;
+    /* Red highlighter like */
+    margin-top: 30px;
+    margin-bottom: 0;
+    line-height: 30px;
+    page-break-after: avoid;
+}
+
+.pdf-handwritten h1 {
+    font-size: 26pt;
+    line-height: 60px;
+    border-bottom: none;
+}
+
+.pdf-handwritten h2 {
+    font-size: 20pt;
+    line-height: 60px;
+}
+
+/* Image styling - "Taped" look */
+.pdf-handwritten img {
+    box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.1);
+    border: 5px solid white;
+    transform: rotate(1deg);
+    /* Slight natural tilt */
+    margin: 15px auto;
+    display: block;
+    max-width: 90%;
+    page-break-inside: avoid;
+}
+
+.pdf-handwritten .content-section {
+    background: transparent;
+    /* Show lines through */
+    box-shadow: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Cards become "Sticky Notes" */
+.pdf-handwritten .lesson-card,
+.pdf-handwritten .cavity-card,
+.pdf-handwritten .toc-card {
+    background-color: #fff9c4;
+    /* Post-it yellow */
+    border: none;
+    box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.1);
+    transform: rotate(-1deg);
+    padding: 15px;
+    margin: 20px 0;
+    font-family: 'Kalam', cursive;
+    page-break-inside: avoid;
+}
+
+.pdf-handwritten strong {
+    background: linear-gradient(120deg, rgba(255, 235, 59, 0.5) 0%, rgba(255, 235, 59, 0.5) 100%);
+    background-repeat: no-repeat;
+    background-size: 100% 40%;
+    background-position: 0 88%;
 }
