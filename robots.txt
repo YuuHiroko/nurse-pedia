@@ -1,0 +1,13 @@
+# Robots.txt for Nurse Pedia
+# This file tells search engine crawlers which pages to index
+
+User-agent: *
+Allow: /
+Disallow: /assets/
+Disallow: /manifest.json
+
+# Sitemap location (create this file when deploying)
+# Sitemap: https://nursepedia.com/sitemap.xml
+
+# Crawl delay (optional, prevents overwhelming server)
+Crawl-delay: 1

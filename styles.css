@@ -1,0 +1,2011 @@
+:root {
+    /* Anatomy Colors */
+    --anatomy-primary: #0056b3;
+    --anatomy-light: #e3f2fd;
+    --anatomy-accent: #1976d2;
+
+    /* Physiology Colors */
+    --physiology-primary: #00897b;
+    --physiology-light: #e0f2f1;
+    --physiology-accent: #26a69a;
+
+    /* Light Theme Colors */
+    --white: #ffffff;
+    --text-dark: #1a1a1a;
+    --text-light: #546e7a;
+    --bg-color: #f8f9fa;
+    --bg-secondary: #ffffff;
+
+    /* Shadows & Effects */
+    --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    --shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.12);
+    --radius: 16px;
+
+    /* Typography */
+    --font-head: 'Outfit', sans-serif;
+    --font-body: 'Plus Jakarta Sans', sans-serif;
+
+    /* Transitions */
+    --transition-speed: 0.3s;
+}
+
+/* Dark Mode Theme */
+[data-theme="dark"] {
+    --anatomy-primary: #4a9eff;
+    --anatomy-light: #1a2942;
+    --anatomy-accent: #6bb6ff;
+
+    --physiology-primary: #4db6ac;
+    --physiology-light: #1a3a37;
+    --physiology-accent: #80cbc4;
+
+    --white: #1e1e1e;
+    --text-dark: #e8e8e8;
+    --text-light: #b0bec5;
+    --bg-color: #121212;
+    --bg-secondary: #1e1e1e;
+
+    --shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    --shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.7);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--bg-color);
+    color: var(--text-dark);
+    line-height: 1.7;
+    transition: background-color var(--transition-speed), color var(--transition-speed);
+}
+
+/* Selection Styles */
+::selection {
+    background-color: var(--anatomy-accent);
+    color: white;
+}
+
+::-moz-selection {
+    background-color: var(--anatomy-accent);
+    color: white;
+}
+
+/* ========== NAVBAR ========== */
+.navbar {
+    background: var(--bg-secondary);
+    padding: 1.2rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    transition: background-color var(--transition-speed);
+}
+
+.logo {
+    font-family: var(--font-head);
+    font-weight: 800;
+    font-size: 1.6rem;
+    color: var(--anatomy-primary);
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    text-decoration: none;
+    transition: color var(--transition-speed);
+}
+
+.logo span {
+    color: var(--text-dark);
+    transition: color var(--transition-speed);
+}
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+/* Search Container */
+.search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search-input {
+    padding: 0.7rem 2.5rem 0.7rem 1rem;
+    border: 2px solid var(--anatomy-light);
+    border-radius: 25px;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    width: 250px;
+    background: var(--bg-color);
+    color: var(--text-dark);
+    transition: all var(--transition-speed);
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: var(--anatomy-accent);
+    box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.1);
+}
+
+.search-icon {
+    position: absolute;
+    right: 1rem;
+    color: var(--text-light);
+    pointer-events: none;
+}
+
+/* Theme Toggle Button */
+.theme-toggle {
+    background: var(--bg-color);
+    border: 2px solid var(--anatomy-light);
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all var(--transition-speed);
+    color: var(--anatomy-primary);
+    font-size: 1.2rem;
+}
+
+.theme-toggle:hover {
+    background: var(--anatomy-light);
+    transform: rotate(15deg) scale(1.1);
+}
+
+.theme-toggle:active {
+    transform: rotate(15deg) scale(0.95);
+}
+
+.download-btn {
+    background: linear-gradient(135deg, var(--anatomy-primary), var(--anatomy-accent));
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 50px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    transition: all var(--transition-speed);
+    font-size: 0.95rem;
+}
+
+.download-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 86, 179, 0.3);
+}
+
+/* Skip to Content - Accessibility */
+.skip-to-content {
+    position: absolute;
+    top: -100px;
+    left: 0;
+    background: var(--anatomy-primary);
+    color: white;
+    padding: 0.8rem 1.5rem;
+    text-decoration: none;
+    border-radius: 0 0 4px 0;
+    z-index: 1000;
+    transition: top 0.3s;
+}
+
+.skip-to-content:focus {
+    top: 0;
+}
+
+/* ========== HERO ========== */
+.hero-main {
+    text-align: center;
+    padding: 5rem 2rem 3rem;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e3f2fd 100%);
+    transition: background var(--transition-speed);
+}
+
+[data-theme="dark"] .hero-main {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+}
+
+.badge-premium {
+    background: linear-gradient(135deg, #ffd700, #ffed4e);
+    color: #1a1a1a;
+    padding: 0.5rem 1.5rem;
+    border-radius: 30px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    display: inline-block;
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+}
+
+.hero-main h1 {
+    font-family: var(--font-head);
+    font-size: 4rem;
+    margin: 1.5rem 0;
+    line-height: 1.2;
+    font-weight: 800;
+    color: var(--text-dark);
+    transition: color var(--transition-speed);
+}
+
+.hero-main .highlight {
+    background: linear-gradient(135deg, var(--anatomy-primary), var(--anatomy-accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.hero-description {
+    color: var(--text-light);
+    max-width: 700px;
+    margin: 0 auto;
+    font-size: 1.2rem;
+    transition: color var(--transition-speed);
+}
+
+/* Search Highlight Styles */
+mark {
+    background-color: #ffeb3b;
+    color: #000;
+    padding: 0.1rem 0.2rem;
+    border-radius: 3px;
+    font-weight: 600;
+    animation: highlightPulse 1.5s ease-in-out;
+}
+
+[data-theme="dark"] mark {
+    background-color: #ffc107;
+    color: #000;
+}
+
+@keyframes highlightPulse {
+
+    0%,
+    100% {
+        background-color: #ffeb3b;
+    }
+
+    50% {
+        background-color: #ffd54f;
+    }
+}
+
+/* ========== MAIN COLUMNS ========== */
+.main-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    padding: 4rem 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.subject-column {
+    background: var(--bg-secondary);
+    border-radius: var(--radius);
+    padding: 2rem;
+    box-shadow: var(--shadow);
+    transition: background-color var(--transition-speed), box-shadow var(--transition-speed);
+}
+
+/* Column Headers */
+.column-header {
+    text-align: center;
+    padding: 2rem;
+    border-radius: var(--radius);
+    margin-bottom: 2rem;
+}
+
+.anatomy-header {
+    background: linear-gradient(135deg, var(--anatomy-primary), var(--anatomy-accent));
+    color: var(--white);
+}
+
+.physiology-header {
+    background: linear-gradient(135deg, var(--physiology-primary), var(--physiology-accent));
+    color: var(--white);
+}
+
+.icon-circle {
+    width: 80px;
+    height: 80px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+    font-size: 2.5rem;
+}
+
+.column-header h2 {
+    font-family: var(--font-head);
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    font-weight: 800;
+}
+
+.column-header p {
+    opacity: 0.9;
+    font-size: 1.1rem;
+}
+
+/* ========== LESSON CARDS ========== */
+.lessons-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.lesson-card {
+    background: var(--bg-color);
+    border-radius: var(--radius);
+    padding: 1.8rem;
+    position: relative;
+    transition: all var(--transition-speed);
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--text-dark);
+    border: 2px solid transparent;
+}
+
+.lesson-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
+    border-color: var(--anatomy-accent);
+}
+
+.anatomy-column .lesson-card:hover {
+    border-color: var(--anatomy-accent);
+}
+
+.physiology-column .lesson-card:hover {
+    border-color: var(--physiology-accent);
+}
+
+.lesson-card.featured {
+    background: linear-gradient(135deg, #fff9e6 0%, #e3f2fd 100%);
+    border: 2px solid var(--anatomy-accent);
+}
+
+.lesson-number {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: rgba(0, 0, 0, 0.1);
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.lesson-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: var(--anatomy-primary);
+}
+
+.physiology-column .lesson-icon {
+    color: var(--physiology-primary);
+}
+
+.lesson-card h3 {
+    font-family: var(--font-head);
+    font-size: 1.5rem;
+    margin-bottom: 0.8rem;
+    font-weight: 700;
+}
+
+.lesson-card p {
+    color: var(--text-light);
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+}
+
+.lesson-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.85rem;
+    color: var(--text-light);
+}
+
+.badge-new {
+    background: #4caf50;
+    color: white;
+    padding: 0.2rem 0.7rem;
+    border-radius: 15px;
+    font-weight: 700;
+    font-size: 0.75rem;
+}
+
+.lesson-card.coming-soon {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.lesson-card.coming-soon:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+.coming-badge {
+    background: #ff9800;
+    color: white;
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    font-weight: 600;
+    display: inline-block;
+    margin-top: 0.5rem;
+}
+
+/* ========== FOOTER ========== */
+.site-footer {
+    text-align: center;
+    padding: 3rem 2rem;
+    background: var(--bg-secondary);
+    color: var(--text-light);
+    margin-top: 3rem;
+    transition: background-color var(--transition-speed);
+}
+
+.footer-note {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+}
+
+/* ========== LESSON PAGE STYLES ========== */
+.lesson-hero {
+    padding: 3rem 2rem 4rem;
+    color: white;
+    transition: background var(--transition-speed);
+}
+
+.anatomy-bg {
+    background: linear-gradient(135deg, var(--anatomy-primary) 0%, var(--anatomy-accent) 100%);
+}
+
+.lesson-hero h1 {
+    color: white;
+}
+
+.lesson-subtitle {
+    color: rgba(255, 255, 255, 0.95);
+}
+
+.breadcrumb {
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    opacity: 0.9;
+}
+
+.breadcrumb a {
+    color: white;
+    text-decoration: none;
+}
+
+.breadcrumb i {
+    font-size: 0.7rem;
+    margin: 0 0.5rem;
+}
+
+.anatomy-badge {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 0.4rem 1.2rem;
+    border-radius: 25px;
+    font-weight: 600;
+    display: inline-block;
+    margin-bottom: 1.5rem;
+}
+
+.lesson-hero h1 {
+    font-family: var(--font-head);
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    font-weight: 800;
+}
+
+.lesson-subtitle {
+    font-size: 1.3rem;
+    opacity: 0.95;
+    max-width: 800px;
+}
+
+.lesson-stats {
+    display: flex;
+    gap: 2rem;
+    margin-top: 2rem;
+    font-size: 0.95rem;
+}
+
+.lesson-stats span {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* ========== LESSON CONTENT ========== */
+.lesson-content {
+    max-width: 1000px;
+    margin: -3rem auto 0;
+    padding: 0 2rem 4rem;
+}
+
+.toc-card {
+    background: var(--bg-secondary);
+    padding: 2rem;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    margin-bottom: 3rem;
+    transition: background-color var(--transition-speed);
+}
+
+.toc-card h3 {
+    font-family: var(--font-head);
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    color: var(--anatomy-primary);
+}
+
+.toc-card ol {
+    list-style-position: inside;
+    line-height: 2.2;
+}
+
+.toc-card a {
+    color: var(--text-dark);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.toc-card a:hover {
+    color: var(--anatomy-accent);
+}
+
+.content-section {
+    background: var(--bg-secondary);
+    padding: 3rem;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    margin-bottom: 2rem;
+    transition: background-color var(--transition-speed), box-shadow var(--transition-speed);
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 3px solid var(--anatomy-light);
+}
+
+.section-number {
+    background: linear-gradient(135deg, var(--anatomy-primary), var(--anatomy-accent));
+    color: white;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 800;
+    flex-shrink: 0;
+}
+
+.section-header h2 {
+    font-family: var(--font-head);
+    font-size: 2rem;
+    color: var(--anatomy-primary);
+    font-weight: 700;
+}
+
+.content-card {
+    background: var(--bg-color);
+    padding: 2rem;
+    border-radius: 12px;
+    margin: 1.5rem 0;
+}
+
+.content-card h3,
+.content-card h4 {
+    font-family: var(--font-head);
+    color: var(--anatomy-primary);
+    margin-bottom: 1rem;
+}
+
+.definition-card {
+    background: linear-gradient(135deg, var(--anatomy-light) 0%, #fff 100%);
+    border-left: 5px solid var(--anatomy-primary);
+    padding: 2rem;
+    border-radius: 12px;
+}
+
+.definition-text {
+    font-size: 1.15rem;
+    line-height: 1.8;
+}
+
+.highlight-box {
+    margin: 2rem 0;
+}
+
+.etymology-list {
+    list-style: none;
+    padding-left: 1rem;
+}
+
+.etymology-list li {
+    padding: 0.5rem 0;
+    font-size: 1.05rem;
+}
+
+.info-note {
+    background: #fff3e0;
+    border-left: 4px solid #ff9800;
+    padding: 1.2rem;
+    border-radius: 8px;
+    margin-top: 1.5rem;
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+}
+
+.info-note i {
+    color: #ff9800;
+    font-size: 1.3rem;
+}
+
+.blue-note {
+    background: var(--anatomy-light);
+    border-color: var(--anatomy-accent);
+}
+
+.blue-note i {
+    color: var(--anatomy-accent);
+}
+
+.warning-note {
+    background: #ffebee;
+    border-left: 4px solid #f44336;
+    padding: 1.2rem;
+    border-radius: 8px;
+    margin-top: 1.5rem;
+    display: flex;
+    gap: 1rem;
+}
+
+.warning-note i {
+    color: #f44336;
+    font-size: 1.3rem;
+}
+
+.comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+}
+
+.comparison-table th {
+    background: var(--anatomy-primary);
+    color: white;
+    padding: 1rem;
+    text-align: left;
+}
+
+.comparison-table td {
+    padding: 1rem;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+/* Timeline */
+.timeline {
+    position: relative;
+    padding: 2rem 0;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 30px;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: var(--anatomy-light);
+}
+
+.timeline-item {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    position: relative;
+}
+
+.timeline-date {
+    background: var(--anatomy-primary);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 25px;
+    font-weight: 700;
+    width: 120px;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.timeline-content {
+    background: var(--bg-color);
+    padding: 1.5rem;
+    border-radius: 12px;
+    flex: 1;
+}
+
+.timeline-content h4 {
+    color: var(--anatomy-primary);
+    margin-bottom: 0.5rem;
+}
+
+/* Branches Grid */
+.branches-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.branch-card {
+    background: var(--bg-color);
+    padding: 2rem;
+    border-radius: 12px;
+    border: 2px solid transparent;
+    transition: all 0.3s;
+}
+
+.branch-card:hover {
+    border-color: var(--anatomy-accent);
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
+}
+
+.featured-branch {
+    grid-column: 1 / -1;
+    background: linear-gradient(135deg, var(--anatomy-light) 0%, #fff 100%);
+}
+
+.branch-icon {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.anatomy-icon {
+    background: linear-gradient(135deg, var(--anatomy-primary), var(--anatomy-accent));
+    color: white;
+}
+
+.branch-card h3 {
+    font-family: var(--font-head);
+    color: var(--anatomy-primary);
+    margin-bottom: 0.8rem;
+    font-size: 1.4rem;
+}
+
+.branch-def {
+    font-size: 1.05rem;
+    margin-bottom: 1.5rem;
+    color: var(--text-light);
+}
+
+.sub-list {
+    list-style: none;
+    padding-left: 0.5rem;
+}
+
+.sub-list li {
+    padding: 0.5rem 0;
+    border-left: 3px solid var(--anatomy-light);
+    padding-left: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.check-list {
+    list-style: none;
+}
+
+.check-list li {
+    padding: 0.8rem 0;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.check-list i {
+    color: #4caf50;
+    font-size: 1.2rem;
+}
+
+/* Anatomical Position */
+.split-layout {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 3rem;
+    margin-top: 2rem;
+}
+
+.position-list {
+    list-style: none;
+    margin-top: 1.5rem;
+}
+
+.position-list li {
+    padding: 1rem;
+    background: var(--bg-color);
+    margin-bottom: 0.8rem;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.position-list i {
+    color: var(--anatomy-accent);
+    font-size: 1.5rem;
+}
+
+.image-placeholder {
+    background: var(--bg-color);
+    border-radius: 12px;
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border: 2px dashed var(--anatomy-light);
+}
+
+.anatomy-placeholder i {
+    font-size: 5rem;
+    color: var(--anatomy-accent);
+    margin-bottom: 1rem;
+}
+
+/* Planes */
+.planes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.plane-card {
+    background: var(--bg-color);
+    padding: 2rem;
+    border-radius: 12px;
+    border: 3px solid var(--anatomy-light);
+    transition: all 0.3s;
+}
+
+.plane-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
+}
+
+.sagittal-plane:hover {
+    border-color: #e91e63;
+}
+
+.frontal-plane:hover {
+    border-color: #2196f3;
+}
+
+.transverse-plane:hover {
+    border-color: #4caf50;
+}
+
+.plane-visual {
+    height: 120px;
+    background: white;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.plane-line {
+    position: absolute;
+    background: var(--anatomy-accent);
+}
+
+.plane-line.vertical {
+    width: 3px;
+    height: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.plane-line.frontal {
+    width: 100%;
+    height: 3px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.plane-line.horizontal {
+    width: 100%;
+    height: 3px;
+    top: 50%;
+}
+
+.plane-card h3 {
+    font-family: var(--font-head);
+    color: var(--anatomy-primary);
+    margin-bottom: 0.5rem;
+}
+
+.plane-orientation {
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--text-light);
+}
+
+.movement-note {
+    background: white;
+    padding: 0.8rem;
+    border-radius: 8px;
+    margin-top: 1rem;
+    color: var(--anatomy-accent);
+    font-weight: 600;
+}
+
+/* Directional Terms */
+.directional-pairs {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.term-pair {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.term-card {
+    background: var(--bg-color);
+    padding: 1.8rem;
+    border-radius: 12px;
+    border: 2px solid var(--anatomy-light);
+    transition: all 0.3s;
+}
+
+.term-card:hover {
+    border-color: var(--anatomy-accent);
+    transform: scale(1.03);
+}
+
+.term-card h4 {
+    color: var(--anatomy-primary);
+    font-size: 1.3rem;
+    margin-bottom: 0.8rem;
+}
+
+.example {
+    background: white;
+    padding: 0.8rem;
+    border-radius: 8px;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: var(--text-light);
+    font-style: italic;
+}
+
+.vs-divider {
+    font-size: 2rem;
+    color: var(--anatomy-accent);
+}
+
+/* Body Cavities */
+.cavities-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.cavity-title {
+    font-family: var(--font-head);
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    border-radius: 8px;
+}
+
+.dorsal-title {
+    background: #e1f5fe;
+    color: var(--anatomy-primary);
+}
+
+.ventral-title {
+    background: #fff3e0;
+    color: #e65100;
+}
+
+.cavity-card {
+    background: var(--bg-color);
+    padding: 1.5rem;
+    border-radius: 12px;
+    margin-bottom: 1.5rem;
+}
+
+.cavity-card h4 {
+    color: var(--anatomy-primary);
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
+.sub-cavities {
+    margin-top: 1rem;
+    padding-left: 1rem;
+}
+
+.sub-cavity {
+    background: white;
+    padding: 0.8rem;
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+}
+
+.clinical-note {
+    background: linear-gradient(135deg, #e8f5e9 0%, #fff 100%);
+    border-left: 5px solid #4caf50;
+    padding: 2rem;
+    border-radius: 12px;
+    margin-top: 2rem;
+}
+
+.clinical-note h4 {
+    color: #2e7d32;
+    margin-bottom: 1rem;
+}
+
+/* Importance Grid */
+.importance-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.importance-card {
+    background: var(--bg-color);
+    padding: 2rem;
+    border-radius: 12px;
+    text-align: center;
+    transition: all 0.3s;
+}
+
+.importance-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
+    background: linear-gradient(135deg, var(--anatomy-light) 0%, #fff 100%);
+}
+
+.importance-icon {
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, var(--anatomy-primary), var(--anatomy-accent));
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    margin: 0 auto 1.5rem;
+}
+
+.importance-card h4 {
+    color: var(--anatomy-primary);
+    margin-bottom: 0.8rem;
+}
+
+/* Study Tips */
+.tips-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.tip-card {
+    padding: 2rem;
+    border-radius: 12px;
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+.tip-card.gold {
+    background: linear-gradient(135deg, #ffd700, #ffa500);
+}
+
+.tip-card.blue {
+    background: linear-gradient(135deg, #2196f3, #1976d2);
+}
+
+.tip-card.green {
+    background: linear-gradient(135deg, #4caf50, #388e3c);
+}
+
+.tip-card.purple {
+    background: linear-gradient(135deg, #9c27b0, #7b1fa2);
+}
+
+.tip-card.orange {
+    background: linear-gradient(135deg, #ff9800, #f57c00);
+}
+
+.tip-card.red {
+    background: linear-gradient(135deg, #f44336, #d32f2f);
+}
+
+.tip-number {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 800;
+}
+
+.tip-card h4 {
+    color: white;
+    margin-bottom: 0.8rem;
+    font-size: 1.3rem;
+}
+
+.success-quote {
+    text-align: center;
+    padding: 3rem;
+    background: linear-gradient(135deg, var(--anatomy-primary), var(--anatomy-accent));
+    color: white;
+    border-radius: var(--radius);
+    margin-top: 3rem;
+    font-size: 1.3rem;
+    font-style: italic;
+}
+
+.success-quote i {
+    opacity: 0.3;
+    font-size: 2rem;
+}
+
+/* Summary Card */
+.summary-card {
+    background: linear-gradient(135deg, #fff9e6 0%, #e3f2fd 100%);
+    border: 3px solid var(--anatomy-accent);
+    padding: 2.5rem;
+    border-radius: var(--radius);
+    margin-top: 3rem;
+}
+
+.summary-card h3 {
+    font-family: var(--font-head);
+    color: var(--anatomy-primary);
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+}
+
+.takeaways-list {
+    list-style: none;
+}
+
+.takeaways-list li {
+    padding: 0.8rem 0;
+    padding-left: 2rem;
+    position: relative;
+}
+
+.takeaways-list li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: #4caf50;
+    font-weight: bold;
+    font-size: 1.3rem;
+}
+
+/* Lesson Navigation */
+.lesson-navigation {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.nav-button {
+    flex: 1;
+    padding: 1.5rem;
+    background: var(--anatomy-primary);
+    color: white;
+    text-decoration: none;
+    border-radius: 12px;
+    text-align: center;
+    font-weight: 600;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+}
+
+.nav-button:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-hover);
+}
+
+.nav-button.disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.nav-button.disabled:hover {
+    transform: none;
+}
+
+.coming {
+    display: block;
+    font-size: 0.8rem;
+    opacity: 0.8;
+}
+
+/* Lesson Footer */
+.lesson-footer {
+    text-align: center;
+    padding: 2rem;
+    background: var(--white);
+    color: var(--text-light);
+    margin-top: 3rem;
+}
+
+.footer-love {
+    margin-top: 0.5rem;
+}
+
+/* ========== PRINT STYLES ========== */
+@media print {
+
+    .navbar,
+    .download-btn,
+    .lesson-navigation,
+    .toc-card {
+        display: none !important;
+    }
+
+    body {
+        background: white;
+    }
+
+    .lesson-hero {
+        background: white !important;
+        color: black !important;
+        padding: 2rem 0;
+    }
+
+    .lesson-hero h1 {
+        color: black;
+        font-size: 24pt;
+    }
+
+    .content-section {
+        page-break-inside: avoid;
+        box-shadow: none;
+        border: 1px solid #ddd;
+        margin-bottom: 20px;
+    }
+
+    .section-number {
+        background: black !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .main-columns {
+        grid-template-columns: 1fr;
+    }
+
+    .split-layout,
+    .cavities-layout,
+    .term-pair {
+        grid-template-columns: 1fr;
+    }
+
+    .vs-divider {
+        transform: rotate(90deg);
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-main h1 {
+        font-size: 2.5rem;
+    }
+
+    .lesson-hero h1 {
+        font-size: 2rem;
+    }
+
+    .lesson-stats {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .content-section {
+        padding: 1.5rem;
+    }
+}
+
+/* Image Wrappers */
+.image-wrapper {
+    background: var(--white);
+    padding: 1rem;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.lesson-img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    object-fit: contain;
+}
+
+.full-width-img {
+    margin-top: 1.5rem;
+    max-height: 400px;
+}
+
+/* Updated Split Layout for Images */
+.split-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin-top: 2rem;
+    align-items: center;
+}
+
+.split-image .image-wrapper {
+    height: 100%;
+    max-height: 500px;
+}
+
+@media (max-width: 768px) {
+    .split-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Utility Classes */
+.text-center {
+    text-align: center;
+}
+
+.mb-2 {
+    margin-bottom: 1rem;
+}
+
+.caption {
+    color: var(--text-light);
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+    font-style: italic;
+}
+
+.full-width-img-card {
+    padding: 2rem;
+    text-align: center;
+}
+
+/* ========== PDF MODAL ========== */
+.pdf-modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.3s;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.pdf-modal-content {
+    background: var(--white);
+    border-radius: var(--radius);
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    animation: slideIn 0.3s;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.pdf-modal-header {
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid var(--anatomy-light);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.pdf-modal-header h3 {
+    font-family: var(--font-head);
+    font-size: 1.4rem;
+    color: var(--anatomy-primary);
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+}
+
+.pdf-close {
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: var(--text-light);
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.3s;
+}
+
+.pdf-close:hover {
+    background: var(--anatomy-light);
+    color: var(--anatomy-primary);
+}
+
+.pdf-modal-body {
+    padding: 2rem;
+}
+
+.pdf-option {
+    margin-bottom: 1.5rem;
+}
+
+.pdf-option label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+.pdf-option input[type="text"],
+.pdf-option select {
+    width: 100%;
+    padding: 0.8rem;
+    border: 2px solid var(--anatomy-light);
+    border-radius: 8px;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.pdf-option input[type="text"]:focus,
+.pdf-option select:focus {
+    outline: none;
+    border-color: var(--anatomy-accent);
+}
+
+.pdf-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.pdf-checkbox input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.pdf-checkbox label {
+    margin-bottom: 0;
+    cursor: pointer;
+}
+
+.pdf-modal-footer {
+    padding: 1.5rem 2rem;
+    border-top: 1px solid var(--anatomy-light);
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+}
+
+.pdf-btn {
+    padding: 0.8rem 1.8rem;
+    border: none;
+    border-radius: 8px;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.pdf-btn-cancel {
+    background: var(--bg-color);
+    color: var(--text-dark);
+}
+
+.pdf-btn-cancel:hover {
+    background: #e0e0e0;
+}
+
+.pdf-btn-generate {
+    background: linear-gradient(135deg, var(--anatomy-primary), var(--anatomy-accent));
+    color: white;
+}
+
+.pdf-btn-generate:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 86, 179, 0.3);
+}
+
+.pdf-progress {
+    padding: 1.5rem 2rem;
+    text-align: center;
+}
+
+.pdf-progress-bar {
+    width: 100%;
+    height: 6px;
+    background: var(--anatomy-light);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+}
+
+.pdf-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--anatomy-primary), var(--anatomy-accent));
+    border-radius: 10px;
+    width: 0%;
+    transition: width 0.3s ease;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.7;
+    }
+}
+
+.pdf-progress p {
+    margin: 0.5rem 0;
+    font-weight: 600;
+    color: var(--anatomy-primary);
+}
+
+.pdf-progress-tip {
+    font-size: 0.85rem !important;
+    color: var(--text-light) !important;
+    font-weight: 400 !important;
+}
+
+/* ========== RESPONSIVE DESIGN - MOBILE FIRST ========== */
+@media (max-width: 1024px) {
+    .main-columns {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        padding: 2rem 1rem;
+    }
+
+    .split-layout,
+    .cavities-layout,
+    .term-pair {
+        grid-template-columns: 1fr;
+    }
+
+    .navbar {
+        padding: 1rem 1.5rem;
+    }
+
+    .hero-main h1 {
+        font-size: 3rem;
+    }
+}
+
+@media (max-width: 768px) {
+
+    /* Navigation */
+    .navbar {
+        padding: 1rem;
+        flex-wrap: wrap;
+    }
+
+    .logo {
+        font-size: 1.3rem;
+    }
+
+    .download-btn {
+        padding: 0.7rem 1.2rem;
+        font-size: 0.9rem;
+    }
+
+    /* Hero */
+    .hero-main {
+        padding: 3rem 1.5rem 2rem;
+    }
+
+    .hero-main h1 {
+        font-size: 2.2rem;
+    }
+
+    .hero-description {
+        font-size: 1rem;
+    }
+
+    .column-header h2 {
+        font-size: 2rem;
+    }
+
+    /* Lesson Hero */
+    .lesson-hero {
+        padding: 2rem 1.5rem 3rem;
+    }
+
+    .lesson-hero h1 {
+        font-size: 2rem;
+    }
+
+    .lesson-subtitle {
+        font-size: 1.1rem;
+    }
+
+    .lesson-stats {
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+
+    /* Content */
+    .lesson-content {
+        padding: 0 1rem 3rem;
+    }
+
+    .content-section {
+        padding: 1.5rem;
+    }
+
+    .section-header {
+        gap: 1rem;
+    }
+
+    .section-number {
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
+    }
+
+    .section-header h2 {
+        font-size: 1.5rem;
+    }
+
+    /* Grids */
+    .branches-grid,
+    .planes-grid,
+    .directional-pairs,
+    .tips-container,
+    .importance-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* Timeline */
+    .timeline-item {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .timeline-date {
+        width: auto;
+    }
+
+    /* Tables */
+    .comparison-table {
+        font-size: 0.9rem;
+    }
+
+    .comparison-table th,
+    .comparison-table td {
+        padding: 0.7rem;
+    }
+
+    /* PDF Modal */
+    .pdf-modal-content {
+        width: 95%;
+        margin: 1rem;
+    }
+
+    .pdf-modal-header,
+    .pdf-modal-body,
+    .pdf-modal-footer {
+        padding: 1.2rem;
+    }
+
+    .pdf-modal-footer {
+        flex-direction: column;
+    }
+
+    .pdf-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    /* Touch-friendly buttons */
+    .download-btn,
+    .nav-button,
+    .lesson-card {
+        min-height: 44px;
+    }
+
+    /* Images */
+    .full-width-img {
+        max-height: 300px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-main h1 {
+        font-size: 1.8rem;
+    }
+
+    .lesson-card {
+        padding: 1.2rem;
+    }
+
+    .lesson-card h3 {
+        font-size: 1.2rem;
+    }
+
+    .content-section {
+        padding: 1rem;
+    }
+
+    .pdf-modal-header h3 {
+        font-size: 1.1rem;
+    }
+}
+
+/* ========== PRINT STYLES (Enhanced) ========== */
+@media print {
+
+    .navbar,
+    .download-btn,
+    .lesson-navigation,
+    .toc-card,
+    .pdf-modal,
+    .lesson-stats,
+    .breadcrumb {
+        display: none !important;
+    }
+
+    body {
+        background: white;
+    }
+
+    .lesson-hero {
+        background: white !important;
+        color: black !important;
+        padding: 1rem 0;
+        page-break-after: avoid;
+    }
+
+    .lesson-hero h1 {
+        color: black;
+        font-size: 20pt;
+    }
+
+    .content-section {
+        page-break-inside: avoid;
+        box-shadow: none;
+        border: 1px solid #ddd;
+        margin-bottom: 15px;
+    }
+
+    .section-number {
+        background: black !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    img {
+        max-width: 100%;
+        page-break-inside: avoid;
+    }
+
+    a {
+        text-decoration: none;
+        color: black;
+    }
+
+    .content-card,
+    .branch-card,
+    .plane-card {
+        page-break-inside: avoid;
+    }
+}
+
+/* ========== SCROLL TO TOP BUTTON ========== */
+.scroll-to-top {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, var(--anatomy-primary), var(--anatomy-accent));
+    color: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(0, 86, 179, 0.3);
+    transition: all 0.3s;
+    z-index: 999;
+}
+
+.scroll-to-top.visible {
+    display: flex;
+}
+
+.scroll-to-top:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(0, 86, 179, 0.4);
+}
+
+/* ========== MOBILE OPTIMIZATIONS ========== */
+@media (max-width: 768px) {
+
+    /* Better spacing for mobile */
+    .content-section {
+        margin-bottom: 1.5rem;
+    }
+
+    /* Ensure tables are scrollable */
+    .comparison-table {
+        display: block;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* Prevent text selection on buttons */
+    button,
+    .lesson-card {
+        -webkit-user-select: none;
+        user-select: none;
+        -webkit-tap-highlight-color: transparent;
+    }
+}
+
+/* ========== ACCESSIBILITY ========== */
+*:focus-visible {
+    outline: 3px solid var(--anatomy-accent);
+    outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* ========== RESPONSIVE MULTI-SUBJECT GRID ========== */
+.main-subjects {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+    padding: 4rem 2rem;
+    max-width: 1600px;
+    margin: 0 auto;
+}
+
+/* Mobile: 1 column */
+@media (max-width: 768px) {
+    .main-subjects {
+        grid-template-columns: 1fr;
+        padding: 2rem 1rem;
+        gap: 1.5rem;
+    }
+}
+
+/* Tablet: 2 columns */
+@media (min-width: 769px) and (max-width: 1199px) {
+    .main-subjects {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Desktop: 3 columns when there are 3+ subjects */
+@media (min-width: 1200px) {
+    .main-subjects {
+        grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+    }
+}
